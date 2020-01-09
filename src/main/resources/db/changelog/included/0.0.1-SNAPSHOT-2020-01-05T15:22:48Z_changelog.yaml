@@ -1,0 +1,97 @@
+databaseChangeLog:
+- changeSet:
+    id: 1578237771494-1
+    author: burakmert (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: AddressPK
+            name: id
+            type: BIGINT
+        - column:
+            name: address
+            type: VARCHAR(255)
+        - column:
+            name: city
+            type: VARCHAR(255)
+        - column:
+            name: town
+            type: VARCHAR(255)
+        tableName: Address
+- changeSet:
+    id: 1578237771494-2
+    author: burakmert (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: EducationPK
+            name: id
+            type: BIGINT
+        - column:
+            name: name
+            type: VARCHAR(255)
+        - column:
+            name: shortCode
+            type: VARCHAR(255)
+        tableName: Education
+- changeSet:
+    id: 1578237771494-3
+    author: burakmert (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: PersonPK
+            name: id
+            type: BIGINT
+        - column:
+            name: age
+            type: INT
+        - column:
+            name: fullName
+            type: VARCHAR(255)
+        - column:
+            name: address_id
+            type: BIGINT
+        - column:
+            name: education_id
+            type: BIGINT
+        tableName: Person
+- changeSet:
+    id: 1578237771494-4
+    author: burakmert (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: address_id
+        baseTableName: Person
+        constraintName: FK6i7nduc8blbwp1dbfwavvnvvx
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: Address
+        validate: true
+- changeSet:
+    id: 1578237771494-5
+    author: burakmert (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: education_id
+        baseTableName: Person
+        constraintName: FK91u9r7xa49ug6ns1pi8vxb25v
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: Education
+        validate: true
+
