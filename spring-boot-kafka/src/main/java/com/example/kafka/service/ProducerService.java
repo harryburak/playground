@@ -20,7 +20,8 @@ public class ProducerService {
 	private KafkaTemplate<String, String> kafkaTemplate;
 	
 	@Autowired
-	private KafkaTemplate<String, User> userKafkaTemplate;
+	private KafkaTemplate<String,User> userKafkaTemplate;
+	
 	
 	public void sendMessage(String message) {
 		
@@ -45,7 +46,7 @@ public class ProducerService {
 	
 	public void sendMessageWithObject(User user) {
 		logger.info(String.format("#### -> Producing object message -> %s", user.toString()));
-		userKafkaTemplate.send("my-replicated-topic", new User(1L,"harryBurak","burakmert50@gmail.com"));
-
+		userKafkaTemplate.send("my-replicated-topic", user);
 	}
+	
 }
