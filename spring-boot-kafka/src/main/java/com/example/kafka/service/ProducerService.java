@@ -10,6 +10,7 @@ import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.ListenableFutureCallback;
 
 import com.example.kafka.entity.User;
+import com.example.kafka.request.FootballRequest;
 
 @Service
 public class ProducerService {
@@ -21,6 +22,9 @@ public class ProducerService {
 	
 	@Autowired
 	private KafkaTemplate<String,User> userKafkaTemplate;
+	
+	@Autowired
+	private KafkaTemplate<String, FootballRequest> footballKafkaTemplate;
 	
 	
 	public void sendMessage(String message) {
@@ -47,6 +51,11 @@ public class ProducerService {
 	public void sendMessageWithObject(User user) {
 		logger.info(String.format("#### -> Producing object message -> %s", user.toString()));
 		userKafkaTemplate.send("my-replicated-topic", user);
+	}
+	
+	public void getLeagues(FootballRequest request) {
+		logger.info(String.format("#### -> Producing object message -> %s", request.toString()));
+		footballKafkaTemplate.send("test",request);
 	}
 	
 }

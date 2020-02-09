@@ -15,6 +15,7 @@ import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 
 import com.example.kafka.entity.User;
+import com.example.kafka.request.FootballResponse;
 
 @EnableKafka
 @Configuration
@@ -48,6 +49,12 @@ public class KafkaConsumer {
 		return new DefaultKafkaConsumerFactory<>(config,null,new JsonDeserializer<>(User.class));
 	}
 	
+	public ConsumerFactory<String,FootballResponse> footballConsumerFactory(String groupId){
+		Map<String,Object> config = new HashMap<>();
+		defaultConsumerConfig(config, groupId);
+		return new DefaultKafkaConsumerFactory<>(config,null,new JsonDeserializer<>(FootballResponse.class));
+	}
+	
 	
 	public ConsumerFactory<String, String> consumerFactory(String groupId){
 		Map<String,Object> config = new HashMap<>();
@@ -61,6 +68,13 @@ public class KafkaConsumer {
 	public ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory() {
         ConcurrentKafkaListenerContainerFactory<String, String> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory(groupId));
+        return factory;
+    }
+	
+	@Bean
+	public ConcurrentKafkaListenerContainerFactory<String, FootballResponse> footballListenerContainerFactory() {
+        ConcurrentKafkaListenerContainerFactory<String, FootballResponse> factory = new ConcurrentKafkaListenerContainerFactory<>();
+        factory.setConsumerFactory(footballConsumerFactory("football"));
         return factory;
     }
 	

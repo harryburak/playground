@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.kafka.entity.User;
+import com.example.kafka.request.FootballRequest;
 import com.example.kafka.service.ProducerService;
 
 @RestController
@@ -29,5 +30,10 @@ public class KafkaController {
     @PostMapping(value="/publishUser")
     public void sendMessageToKafkaForUser(@RequestBody User user) {
     	producer.sendMessageWithObject(user);
+    }
+    
+    @PostMapping(value="/leagues")
+    public void getLeagues(@RequestBody FootballRequest request) {
+    	producer.getLeagues(request);
     }
 }
